@@ -1,23 +1,28 @@
 import { Grid, Typography, TextField, Button } from "@mui/material"
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom"
 import { AuthContext } from "../context";
+import { gsap } from "gsap";
 
 export const LoginPage = () => {
 
-  const {login} = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const onLogin = () => {
 
     const lastPath = localStorage.getItem('lastPath') || '/';
 
-    login( 'Jeremy Mejia' );
+    login('Jeremy Mejia');
 
     navigate(lastPath, {
       replace: true,
     })
   }
+
+  useEffect(() => {
+    gsap.to(".loginContainer", {scale: 20, duration: 1 });
+  }, []);
 
   return (
     <Grid container
@@ -30,36 +35,19 @@ export const LoginPage = () => {
       }}
     >
       <Grid item
-        padding={3}
         borderRadius={3}
-        sx={{
-          backgroundColor: 'white',
-        }}
+        className="loginContainer"
       >
-        <Typography variant="h4" color="inherit">Login</Typography>
-        <Grid container>
-          <Grid item xs={12}>
-            <TextField
-              id="1"
-              label="Nombre"
-              placeholder="Ingresa tu nombre"
-              sx={{ mt: 1 }}
-            />
-          </Grid>
-        </Grid>
-        <Grid container>
-          <Grid item xs={12}>
-            <Button
-              color="primary"
-              variant="contained"
-              fullWidth
-              onClick={onLogin}
-              sx={{ my: 1, }}
-            >
-              Login
-            </Button>
-          </Grid>
-        </Grid>
+        <Typography
+          variant="h4"
+          color="#fff"
+          fontSize={10}
+          fontFamily={`"Noto Sans Old Persian", sans-serif`}
+          onClick={onLogin}
+          sx={{ cursor: "pointer" }}
+        >
+          Heroes App
+        </Typography>
       </Grid>
     </Grid>
   )
